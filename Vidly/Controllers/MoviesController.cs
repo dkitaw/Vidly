@@ -20,6 +20,7 @@ namespace Vidly.Controllers
         {
             _context.Dispose();
         }
+
         // GET: Mcvies
         [Route("/Movies/Index")]
         public ViewResult Index()

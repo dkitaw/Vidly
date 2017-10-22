@@ -4,7 +4,9 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2> Movies</h2>
+@*<h2> Movies</h2>
+@Html.ActionLink("New Movie", "New", "Movies", new { Id = movie.Id }, null)*@
+<a class="btn btn-primary"> New Movie </a>
 @if (!Model.Any())
 {
    <p>We Dont have any Movies yet</p>
