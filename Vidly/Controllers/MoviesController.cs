@@ -34,14 +34,25 @@ namespace Vidly.Controllers
             var genre = _context.Genres.ToList();
             var viewModel = new MovieFormViewModel()
             {
+                
                 Genre = genre
             };
             return View("MovieForm",viewModel);
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Save(Movie movie)
         {
-            if(movie.Id==0)
+            if (!ModelState.IsValid)
+            {
+                var viewModel = new MovieFormViewModel(movie)
+                {
+                    
+                    Genre = _context.Genres.ToList()
+                };
+                return View("MovieForm", viewModel);
+            }
+            if (movie.Id==0)
             {
                 movie.DateAdded = DateTime.Now;
                 _context.Movies.Add(movie);
@@ -49,15 +60,13 @@ namespace Vidly.Controllers
             else
             {
                 var MovieInDb = _context.Movies.Single(m => m.Id == movie.Id);
-                MovieInDb.Id = movie.Id;
-                MovieInDb.Name = movie.Name;
-                MovieInDb.ReleaseDate = movie.ReleaseDate;
-                MovieInDb.DateAdded = DateTime.Now;
-                MovieInDb.GenreId = movie.GenreId;
                 MovieInDb.NumberInStock = movie.NumberInStock;
             }
             
             _context.SaveChanges();
+            
+           
+            
             return RedirectToAction("Index","Movies");
         }
         public ActionResult Edit(int id)
@@ -65,10 +74,10 @@ namespace Vidly.Controllers
             
             var movie = _context.Movies.Single(m=>m.Id==id);
             if (movie == null)
-                return HttpNotFound();  
-            var viewModel = new MovieFormViewModel()
+                return HttpNotFound();
+            var viewModel = new MovieFormViewModel(movie)
             {
-                Movie = movie,
+                
                 Genre=_context.Genres.ToList()
             };
 

@@ -13,11 +13,19 @@ namespace Vidly.Models
         [Required]
         [MaxLength(255)]
         public string Name { get; set; }
+
         public bool IsSubscribedToNewsLetters { get; set; }
-        [Display(Name="Membership Type")]
+
+       
         public MembershipType MembershipType { get; set; }
+
         [Display(Name ="Date of Birth")]
+        [Minimum18YearsIfAMember]
         public DateTime? Birthdate { get; set; }
+
+        [Display(Name = "Membership Type")]
         public byte MembershipTypeId { get; set; }
+
+       
     }
 }
