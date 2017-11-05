@@ -8,7 +8,7 @@ namespace Vidly.Models
 {
     public class MembershipType
     {
-        public byte id { get; set; }
+        public byte Id { get; set; }
         [Required]
         [MaxLength(255)]
         public string Name { get; set; }
