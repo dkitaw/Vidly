@@ -53,10 +53,13 @@ namespace Vidly
             //app.UseTwitterAuthentication(
             //   consumerKey: "",
             //   consumerSecret: "");
+            var options=new Microsoft.Owin.Security.Facebook.FacebookAuthenticationOptions();
+            options.AppId = "1750808005213375";
+            options.AppSecret = "474bfd3e658153e01179bec49a6fa100";
+            options.CallbackPath = new PathString("/Account/ExternalLoginConfirmation/");
 
-            //app.UseFacebookAuthentication(
-            //   appId: "",
-            //   appSecret: "");
+
+            app.UseFacebookAuthentication(options);
 
             //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             //{
