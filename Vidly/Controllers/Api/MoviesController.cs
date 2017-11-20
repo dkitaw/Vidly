@@ -11,7 +11,7 @@ using Vidly.Models;
 
 namespace Vidly.Controllers.Api
 {
-
+    [Authorize]
     public class MoviesController : ApiController
 
 
@@ -22,6 +22,7 @@ namespace Vidly.Controllers.Api
             _context = new ApplicationDbContext();
         }
         //GET /Api/Movies
+        [Authorize(Roles = RoleName.CanManageMovies)]
         public IEnumerable<MovieDto> GetMovies()
         {
             return _context.Movies.Include(g=>g.Genre).ToList().Select(Mapper.Map<Movie,MovieDto>);
